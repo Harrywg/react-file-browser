@@ -7,5 +7,5 @@ export interface Asset {
 export interface Folder {
    type: 'folder';
    name: string;
-   files: Asset[];
+   files: (Asset | Folder)[];
 }
