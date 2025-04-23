@@ -1,4 +1,4 @@
-export interface File {
+export interface Asset {
    type: 'doc' | 'csv' | 'pdf';
    name: string;
    added: string;
@@ -7,5 +7,5 @@ export interface File {
 export interface Folder {
    type: 'folder';
    name: string;
-   files: File[];
+   files: Asset[];
 }

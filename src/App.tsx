@@ -1,25 +1,30 @@
 import useFilesQuery from '@/lib/hooks/useFilesQuery';
-import { dictFileIcon } from '@/lib/dicts';
 import Header from '@/components/Header';
+import AssetCard from '@/components/File/AssetItem';
+import FolderCard from '@/components/File/FolderItem';
+import { Routes, Route, Link } from 'react-router-dom';
+import DirectoryView from '@/views/DirectoryView';
+import AssetView from '@/views/AssetView';
 
 export default function App() {
+   // Due to lack of data, fetching all content at top level
    const { files, isLoading } = useFilesQuery();
    return (
-      <div className="grid h-full w-full">
+      <div className="mx-auto w-full max-w-6xl p-4">
          <Header />
-         <p>
-            isLoading: <strong>{isLoading ? 'true' : 'false'}</strong>
-         </p>
-         <p>
-            files: <strong>{JSON.stringify(files)}</strong>
-         </p>
-         {files.map((file) => (
-            <div key={file.name}>
-               <p>{file.name}</p>
-               <p>{file.type}</p>
-               <p>{dictFileIcon[file.type]}</p>
-            </div>
-         ))}
+         <main>
+            <p>
+               isLoading: <strong>{isLoading ? 'true' : 'false'}</strong>
+            </p>
+            <p>
+               files: <strong>{JSON.stringify(files)}</strong>
+            </p>
+         </main>
+
+         <Routes>
+            <Route path="/" element={<DirectoryView files={files} />} />
+            <Route path="/asset/:name" element={<AssetView files={files} />} />
+         </Routes>
       </div>
    );
 }

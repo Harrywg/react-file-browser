@@ -1,1 +1,16 @@
 @import 'tailwindcss';
+
+@theme {
+    --color-red: #F2545B;
+    --color-purple: #A93F55;
+    --color-grey: #19323C;
+    --color-white: #F3F7F0;
+    --color-brown: #8C5E58;
+}
+
+html,
+body,
+#root {
+    background: var(--color-white);
+    color: var(--color-grey);
+}
