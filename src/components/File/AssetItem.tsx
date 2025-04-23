@@ -4,11 +4,12 @@ import Item from '@/components/File/Item';
 
 interface Props {
    asset: Asset;
+   setSelectedAsset: (asset: Asset) => void;
 }
 
-export default function AssetItem({ asset }: Props) {
+export default function AssetItem({ asset, setSelectedAsset }: Props) {
    return (
-      <Item className="group cursor-pointer" handleClick={() => {}}>
+      <Item className="group cursor-pointer" handleClick={() => setSelectedAsset(asset)}>
          <p>{dictFileIcon[asset.type]}</p>
          <h2 className="text-md font-bold group-hover:underline">{asset.name}</h2>
       </Item>

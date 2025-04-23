@@ -8,10 +8,15 @@ import { useLocation } from 'react-router-dom';
 
 interface DirectoryViewProps {
    files: (Asset | Folder)[];
+   setSelectedAsset: (asset: Asset) => void;
    breadcrumbs?: boolean;
 }
 
-export default function DirectoryView({ files, breadcrumbs = false }: DirectoryViewProps) {
+export default function DirectoryView({
+   files,
+   breadcrumbs = false,
+   setSelectedAsset,
+}: DirectoryViewProps) {
    const location = useLocation();
 
    const pathSegments = location.pathname.split('/').filter(Boolean);
@@ -19,7 +24,7 @@ export default function DirectoryView({ files, breadcrumbs = false }: DirectoryV
 
    const currentFiles = filterCurrentFiles(files, location.pathname);
    return (
-      <>
+      <div>
          {breadcrumbs && <Breadcrumbs path={location.pathname} />}
          <ul className="flex flex-col gap-2">
             {breadcrumbs && <BackItem to={backLocation} />}
@@ -29,12 +34,16 @@ export default function DirectoryView({ files, breadcrumbs = false }: DirectoryV
                      {file.type === 'folder' ? (
                         <FolderItem key={file.name} folder={file} />
                      ) : (
-                        <AssetItem key={file.name} asset={file} />
+                        <AssetItem
+                           key={file.name}
+                           asset={file}
+                           setSelectedAsset={setSelectedAsset}
+                        />
                      )}
                   </li>
                );
             })}
          </ul>
-      </>
+      </div>
    );
 }
