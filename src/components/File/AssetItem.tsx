@@ -8,10 +8,9 @@ interface Props {
 
 export default function AssetItem({ asset }: Props) {
    return (
-      <Item handleClick={() => {}}>
+      <Item className="group cursor-pointer" handleClick={() => {}}>
          <p>{dictFileIcon[asset.type]}</p>
-         <h2 className="text-md font-bold">{asset.name}</h2>
-         <p>{asset.added}</p>
+         <h2 className="text-md font-bold group-hover:underline">{asset.name}</h2>
       </Item>
    );
 }

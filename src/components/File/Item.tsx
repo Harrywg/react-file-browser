@@ -1,12 +1,32 @@
+import { Link } from 'react-router-dom';
+import { ElementType } from 'react';
+
 interface Props {
-   handleClick: () => void;
    children: React.ReactNode;
+   attributes?: React.HTMLAttributes<HTMLButtonElement>;
+   className?: string;
+   handleClick?: () => void;
+   as?: 'button' | 'link';
+   to?: string;
 }
 
-export default function Item({ handleClick, children }: Props) {
+export default function Item({
+   handleClick,
+   children,
+   className,
+   as = 'button',
+   to,
+   ...attributes
+}: Props) {
+   const Component: ElementType = as === 'link' ? Link : 'button';
    return (
-      <button className="flex items-center gap-2" onClick={handleClick}>
+      <Component
+         {...(as === 'link' ? { to } : null)}
+         className={`flex items-center gap-2 ${className}`}
+         onClick={handleClick}
+         {...attributes}
+      >
          {children}
-      </button>
+      </Component>
    );
 }
