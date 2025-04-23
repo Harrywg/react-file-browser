@@ -1,4 +1,4 @@
-import { convertToSlug, filterCurrentFiles } from '../../src/lib/utils';
+import { convertToSlug, findCurrentFiles, filterFiles } from '../../src/lib/utils';
 import { Asset, Folder } from '../../src/lib/types';
 
 describe('convertToSlug', () => {
@@ -15,7 +15,7 @@ describe('convertToSlug', () => {
     });
 });
 
-describe('filterCurrentFiles', () => {
+describe('findCurrentFiles', () => {
     const workFolder: Folder = {
         type: 'folder',
         name: 'Work',
@@ -50,42 +50,65 @@ describe('filterCurrentFiles', () => {
     const sampleFiles: (Asset | Folder)[] = [documentsFolder, picturesFolder];
 
     test('should return root files when path is "/"', () => {
-        const result = filterCurrentFiles(sampleFiles, '/');
+        const result = findCurrentFiles(sampleFiles, '/');
         expect(result).toEqual(sampleFiles);
     });
 
     test('should return files from a first-level folder', () => {
-        const result = filterCurrentFiles(sampleFiles, '/documents/');
+        const result = findCurrentFiles(sampleFiles, '/documents/');
         expect(result).toEqual(documentsFolder.files);
     });
 
     test('should return files from a nested folder', () => {
-        const result = filterCurrentFiles(sampleFiles, '/documents/work/');
+        const result = findCurrentFiles(sampleFiles, '/documents/work/');
         expect(result).toEqual(workFolder.files);
     });
 
     test('should return files from a deeply nested folder', () => {
-        const result = filterCurrentFiles(sampleFiles, '/documents/personal/');
+        const result = findCurrentFiles(sampleFiles, '/documents/personal/');
         expect(result).toEqual(personalFolder.files);
     });
 
     test('should return empty array for non-existent path', () => {
-        const result = filterCurrentFiles(sampleFiles, '/non-existent/');
+        const result = findCurrentFiles(sampleFiles, '/non-existent/');
         expect(result).toEqual([]);
     });
 
     test('should return empty array for partially matching path', () => {
-        const result = filterCurrentFiles(sampleFiles, '/documents/non-existent/');
+        const result = findCurrentFiles(sampleFiles, '/documents/non-existent/');
         expect(result).toEqual([]);
     });
 
     test('should handle paths with trailing slashes', () => {
-        const result = filterCurrentFiles(sampleFiles, '/documents/work////');
+        const result = findCurrentFiles(sampleFiles, '/documents/work////');
         expect(result).toEqual(workFolder.files);
     });
 
     test('should handle paths with leading slashes', () => {
-        const result = filterCurrentFiles(sampleFiles, '/////documents/work/');
+        const result = findCurrentFiles(sampleFiles, '/////documents/work/');
         expect(result).toEqual(workFolder.files);
     });
 });
+
+describe('filterFiles', () => {
+    const sampleFiles: (Asset | Folder)[] = [
+        { type: 'pdf', name: 'Report', added: '2023-01-01' },
+        { type: 'doc', name: 'Notes', added: '2023-01-02' }
+    ];
+
+    test('should filter files by type', () => {
+        const result = filterFiles(sampleFiles, { search: '', type: 'pdf' });
+        expect(result).toEqual([{ type: 'pdf', name: 'Report', added: '2023-01-01' }]);
+    });
+
+    test('should filter files by search', () => {
+        const result = filterFiles(sampleFiles, { search: 'report', type: 'all' });
+        expect(result).toEqual([{ type: 'pdf', name: 'Report', added: '2023-01-01' }]);
+    });
+
+    test('should filter files by type and search', () => {
+        const result = filterFiles(sampleFiles, { search: 'report', type: 'pdf' });
+        expect(result).toEqual([{ type: 'pdf', name: 'Report', added: '2023-01-01' }]);
+    });
+});
+

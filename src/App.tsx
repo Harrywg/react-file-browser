@@ -15,7 +15,6 @@ export default function App() {
       search: '',
       type: 'all',
    });
-   console.log(filterState);
    return (
       <div className="mx-auto h-screen w-full max-w-2xl bg-white p-4 md:p-8">
          <Header />
@@ -30,13 +29,18 @@ export default function App() {
                         <Route
                            path="/"
                            element={
-                              <DirectoryView setSelectedAsset={setSelectedAsset} files={files} />
+                              <DirectoryView
+                                 setSelectedAsset={setSelectedAsset}
+                                 files={files}
+                                 filterState={filterState}
+                              />
                            }
                         />
                         <Route
                            path="/*"
                            element={
                               <DirectoryView
+                                 filterState={filterState}
                                  setSelectedAsset={setSelectedAsset}
                                  breadcrumbs={true}
                                  files={files}
