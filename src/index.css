@@ -11,6 +11,5 @@
 html,
 body,
 #root {
-    background: var(--color-white);
     color: var(--color-grey);
 }

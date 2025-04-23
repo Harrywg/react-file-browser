@@ -9,3 +9,8 @@ export interface Folder {
    name: string;
    files: (Asset | Folder)[];
 }
+
+export interface FilterState {
+   search: string;
+   type: string;
+}
