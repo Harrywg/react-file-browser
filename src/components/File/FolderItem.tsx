@@ -9,9 +9,9 @@ interface Props {
 export default function FolderItem({ folder }: Props) {
    const slug = convertToSlug(folder.name);
    return (
-      <Item as="link" to={slug}>
+      <Item className="group" as="link" to={slug}>
          <p>{dictFileIcon.folder}</p>
-         <h2 className="text-md font-bold">{folder.name}</h2>
+         <h2 className="text-md font-bold group-hover:underline">{folder.name}</h2>
          <small>{folder.files?.length ?? 0} Items</small>
       </Item>
    );
