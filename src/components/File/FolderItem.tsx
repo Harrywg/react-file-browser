@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Folder } from '@/lib/types';
 import { dictFileIcon } from '@/lib/dicts';
 import { convertToSlug } from '@/lib/utils';

@@ -1,10 +1,10 @@
-import { File, Folder } from './types';
+import { Asset, Folder } from './types';
 import files from '../../data.json';
 
-export const getFiles = (): Promise<(File | Folder)[]> => {
+export const getFiles = (): Promise<(Asset | Folder)[]> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(files as (File | Folder)[]);
+            resolve(files as (Asset | Folder)[]);
         }, 500);
     });
 };

@@ -1,3 +1,3 @@
 export const convertToSlug = (name: string) => {
-    return '/' + name.toLowerCase().replace(/ /g, '-');
+    return '/' + name.toLowerCase().replace(/ /g, '-') + '/';
 };

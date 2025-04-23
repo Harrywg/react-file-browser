@@ -1,7 +1,9 @@
-import AssetCard from '@/components/File/AssetItem';
-import FolderCard from '@/components/File/FolderItem';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import AssetItem from '@/components/File/AssetItem';
+import BackItem from '@/components/File/BackItem';
+import FolderItem from '@/components/File/FolderItem';
 import { Asset, Folder } from '@/lib/types';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 interface DirectoryViewProps {
    files: (Asset | Folder)[];
@@ -10,24 +12,28 @@ interface DirectoryViewProps {
 
 export default function DirectoryView({ files, breadcrumbs = false }: DirectoryViewProps) {
    const location = useLocation();
+
    const pathSegments = location.pathname.split('/').filter(Boolean);
+   const backLocation = pathSegments.length > 0 ? `/${pathSegments.slice(0, -1).join('/')}` : '/';
 
-   // Filter files based on the current path
-   const currentFiles = files.filter((file) => {
-      if (pathSegments.length === 0) return true;
-      // TODO: Implement proper file filtering based on the current path
-      return true;
-   });
-
+   const currentFiles = files; //todo
    return (
-      <div className="">
-         {currentFiles.map((file) =>
-            file.type === 'folder' ? (
-               <FolderCard key={file.name} folder={file} />
-            ) : (
-               <AssetCard key={file.name} asset={file} />
-            )
-         )}
-      </div>
+      <>
+         {breadcrumbs && <Breadcrumbs path={location.pathname} />}
+         <ul className="flex flex-col gap-2">
+            {breadcrumbs && <BackItem to={backLocation} />}
+            {currentFiles.map((file) => {
+               return (
+                  <li key={file.name}>
+                     {file.type === 'folder' ? (
+                        <FolderItem key={file.name} folder={file} />
+                     ) : (
+                        <AssetItem key={file.name} asset={file} />
+                     )}
+                  </li>
+               );
+            })}
+         </ul>
+      </>
    );
 }
