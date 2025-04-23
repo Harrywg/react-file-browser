@@ -3,6 +3,7 @@ import AssetItem from '@/components/File/AssetItem';
 import BackItem from '@/components/File/BackItem';
 import FolderItem from '@/components/File/FolderItem';
 import { Asset, Folder } from '@/lib/types';
+import { filterCurrentFiles } from '@/lib/utils';
 import { useLocation } from 'react-router-dom';
 
 interface DirectoryViewProps {
@@ -16,7 +17,7 @@ export default function DirectoryView({ files, breadcrumbs = false }: DirectoryV
    const pathSegments = location.pathname.split('/').filter(Boolean);
    const backLocation = pathSegments.length > 0 ? `/${pathSegments.slice(0, -1).join('/')}` : '/';
 
-   const currentFiles = files; //todo
+   const currentFiles = filterCurrentFiles(files, location.pathname);
    return (
       <>
          {breadcrumbs && <Breadcrumbs path={location.pathname} />}
