@@ -1,4 +1,3 @@
-// JSON module is resolved by vite
 import { File, Folder } from "./types";
 import files from "../../data.json";
 
