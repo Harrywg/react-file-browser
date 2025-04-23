@@ -1,4 +1,5 @@
 import useFilesQuery from "@/lib/hooks/useFilesQuery";
+import { dictFileIcon } from "@/lib/dicts";
 
 export default function App() {
   const { files, isLoading } = useFilesQuery();
@@ -11,6 +12,13 @@ export default function App() {
       <p>
         files: <strong>{JSON.stringify(files)}</strong>
       </p>
+      {files.map((file) => (
+        <div key={file.name}>
+          <p>{file.name}</p>
+          <p>{file.type}</p>
+          <p>{dictFileIcon[file.type]}</p>
+        </div>
+      ))}
     </div>
   );
 }
