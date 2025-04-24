@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import useFilesQuery from '@/lib/hooks/useFilesQuery';
-import { Asset, FilterState, Datasource } from '@/lib/types';
+import { Asset, FilterState } from '@/lib/types';
 import Header from '@/components/Header';
 import Filters from '@/components/Filters';
 import AssetViewer from '@/components/AssetViewer';
 import DirectoryView from '@/views/DirectoryView';
 import DatasourceSelector from '@/components/DatasourceSelector';
+import { useSyncSessionStorage } from './lib/hooks/useSyncSessionStorage';
 
 export default function App() {
-   const [datasource, setDatasource] = useState<Datasource>('supplied');
+   const [datasource, setDatasource] = useSyncSessionStorage('datasource', 'supplied');
 
    // Due to small dataset, fetching all content at top level
    const { files, isLoading } = useFilesQuery(datasource);
@@ -23,7 +24,11 @@ export default function App() {
       <div className="mx-auto h-screen w-full max-w-2xl bg-white p-4 sm:p-8">
          <Header />
          <main>
-            <DatasourceSelector setDatasource={setDatasource} setSelectedAsset={setSelectedAsset} />
+            <DatasourceSelector
+               datasource={datasource}
+               setDatasource={setDatasource}
+               setSelectedAsset={setSelectedAsset}
+            />
             <Filters
                className={isLoading ? 'pointer-events-none opacity-50' : ''}
                filterState={filterState}
