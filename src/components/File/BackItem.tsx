@@ -1,6 +1,4 @@
-import { Folder } from '@/lib/types';
 import { dictFileIcon } from '@/lib/dicts';
-import { convertToSlug } from '@/lib/utils';
 import Item from '@/components/File/Item';
 interface Props {
    to: string;

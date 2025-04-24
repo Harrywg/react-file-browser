@@ -12,11 +12,14 @@ export default function Filters({ filterState, setFilterState, className }: Prop
    };
 
    const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setFilterState({ ...filterState, type: e.target.value });
+      setFilterState({ ...filterState, type: e.target.value as 'all' | 'doc' | 'csv' | 'pdf' });
    };
 
    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setFilterState({ ...filterState, sort: e.target.value });
+      setFilterState({
+         ...filterState,
+         sort: e.target.value as 'type' | 'name' | 'added' | 'added-desc',
+      });
    };
 
    const handleClear = () => {

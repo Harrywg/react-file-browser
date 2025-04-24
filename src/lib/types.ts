@@ -12,8 +12,8 @@ export interface Folder {
 
 export interface FilterState {
    search: string;
-   type: string;
-   sort: string;
+   type: 'all' | 'doc' | 'csv' | 'pdf';
+   sort: 'type' | 'name' | 'added' | 'added-desc';
 }
 
 export type Datasource = 'supplied' | 'larger-dataset';
