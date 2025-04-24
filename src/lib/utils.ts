@@ -1,7 +1,7 @@
 import { Asset, Folder, FilterState } from '@/lib/types';
 
-export const convertToSlug = (name: string) => {
-    return '/' + name.toLowerCase().replace(/ /g, '-') + '/';
+export const convertToSlug = (name: string, currentPath?: string) => {
+    return `${currentPath ?? '/'}${name.toLowerCase().replace(/ /g, '-')}/`;
 };
 
 export const findCurrentFiles = (files: (Asset | Folder)[], path: string): (Asset | Folder)[] => {
