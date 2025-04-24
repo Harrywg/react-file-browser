@@ -1,8 +1,9 @@
+import { useLocation } from 'react-router-dom';
 import { Folder } from '@/lib/types';
 import { dictFileIcon } from '@/lib/dicts';
 import { convertToSlug } from '@/lib/utils';
 import Item from '@/components/File/Item';
-import { useLocation } from 'react-router-dom';
+
 interface Props {
    folder: Folder;
 }
