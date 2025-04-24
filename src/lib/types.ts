@@ -13,4 +13,7 @@ export interface Folder {
 export interface FilterState {
    search: string;
    type: string;
+   sort: string;
 }
+
+export type Datasource = 'supplied' | 'larger-dataset';

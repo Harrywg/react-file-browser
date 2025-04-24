@@ -3,9 +3,10 @@ import { FilterState } from '@/lib/types';
 interface Props {
    filterState: FilterState;
    setFilterState: (filterState: FilterState) => void;
+   className?: string;
 }
 
-export default function Filters({ filterState, setFilterState }: Props) {
+export default function Filters({ filterState, setFilterState, className }: Props) {
    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setFilterState({ ...filterState, search: e.target.value });
    };
@@ -14,15 +15,19 @@ export default function Filters({ filterState, setFilterState }: Props) {
       setFilterState({ ...filterState, type: e.target.value });
    };
 
+   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setFilterState({ ...filterState, sort: e.target.value });
+   };
+
    const handleClear = () => {
-      setFilterState({ search: '', type: 'all' });
+      setFilterState({ search: '', type: 'all', sort: 'type' });
    };
 
    return (
-      <form className="mb-8 flex justify-center gap-2">
+      <form className={`mb-8 flex justify-center gap-2 max-sm:flex-wrap ${className}`}>
          <input
             type="text"
-            placeholder="Search"
+            placeholder="Search this folder"
             className="border-grey w-full rounded border-2 p-1 px-2"
             value={filterState.search}
             onChange={handleSearchChange}
@@ -38,6 +43,17 @@ export default function Filters({ filterState, setFilterState }: Props) {
             <option value="doc">DOC</option>
             <option value="csv">CSV</option>
             <option value="folder">Folder</option>
+         </select>
+         <select
+            id="sort"
+            className="bg-grey rounded p-1 text-white"
+            value={filterState.sort}
+            onChange={handleSortChange}
+         >
+            <option value="type">Type A-Z</option>
+            <option value="name">Name A-Z</option>
+            <option value="added">Date (ASC)</option>
+            <option value="added-desc">Date (DESC)</option>
          </select>
          <button
             onClick={handleClear}

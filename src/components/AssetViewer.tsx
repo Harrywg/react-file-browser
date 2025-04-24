@@ -6,7 +6,7 @@ interface AssetViewerProps {
 
 export default function AssetViewer({ asset }: AssetViewerProps) {
    return (
-      <div className="bg-grey flex aspect-[16/9] w-full flex-col gap-2 rounded-md p-4 text-white">
+      <div className="bg-grey mx-auto flex aspect-[16/9] w-full max-w-sm flex-col gap-2 rounded-md p-4 text-white">
          <div className="flex items-center gap-2">
             {dictFileIcon[asset.type]} {asset.type}
          </div>

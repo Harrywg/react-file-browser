@@ -3,7 +3,7 @@ import AssetItem from '@/components/File/AssetItem';
 import BackItem from '@/components/File/BackItem';
 import FolderItem from '@/components/File/FolderItem';
 import { Asset, Folder, FilterState } from '@/lib/types';
-import { filterFiles, findCurrentFiles } from '@/lib/utils';
+import { filterFiles, findCurrentFiles, sortFiles } from '@/lib/utils';
 import { useLocation } from 'react-router-dom';
 
 interface DirectoryViewProps {
@@ -26,12 +26,14 @@ export default function DirectoryView({
 
    const currentFiles = findCurrentFiles(files, location.pathname);
    const filteredFiles = filterFiles(currentFiles, filterState);
+   const sortedFiles = sortFiles(filteredFiles, filterState.sort);
+
    return (
       <div>
          {breadcrumbs && <Breadcrumbs path={location.pathname} />}
          <ul className="flex flex-col gap-2">
             {breadcrumbs && <BackItem to={backLocation} />}
-            {filteredFiles.map((file) => {
+            {sortedFiles.map((file) => {
                return (
                   <li key={file.name}>
                      {file.type === 'folder' ? (

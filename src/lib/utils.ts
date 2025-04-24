@@ -32,3 +32,32 @@ export const filterFiles = (files: (Asset | Folder)[], filterState: FilterState)
         return true;
     });
 };
+
+export const sortFiles = (files: (Asset | Folder)[], sort: string) => {
+    switch (sort) {
+        case 'type':
+            return files.sort((a, b) => {
+                if (a.type === 'folder' && b.type !== 'folder') return -1;
+                if (a.type !== 'folder' && b.type === 'folder') return 1;
+                return a.name.localeCompare(b.name);
+            });
+        case 'name':
+            return files.sort((a, b) => a.name.localeCompare(b.name));
+        case 'added':
+            return files.sort((a, b) => {
+                if ('added' in a && 'added' in b) {
+                    return new Date(a.added).getTime() - new Date(b.added).getTime();
+                }
+                return 0;
+            });
+        case 'added-desc':
+            return files.sort((a, b) => {
+                if ('added' in a && 'added' in b) {
+                    return new Date(b.added).getTime() - new Date(a.added).getTime();
+                }
+                return 0;
+            });
+        default:
+            return files;
+    }
+};
