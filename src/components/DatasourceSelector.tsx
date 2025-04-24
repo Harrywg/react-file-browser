@@ -2,16 +2,17 @@ import { Datasource } from '@/lib/types';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-   datasource: Datasource;
    setDatasource: (datasource: Datasource) => void;
+   setSelectedAsset: (asset: null) => void;
 }
 
-export default function DatasourceSelector({ datasource, setDatasource }: Props) {
+export default function DatasourceSelector({ setDatasource, setSelectedAsset }: Props) {
    const navigate = useNavigate();
 
    const updateDatasource = (datasource: Datasource) => {
       navigate('/');
       setDatasource(datasource);
+      setSelectedAsset(null);
    };
 
    return (

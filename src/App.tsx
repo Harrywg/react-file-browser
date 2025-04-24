@@ -23,7 +23,7 @@ export default function App() {
       <div className="mx-auto h-screen w-full max-w-2xl bg-white p-4 sm:p-8">
          <Header />
          <main>
-            <DatasourceSelector datasource={datasource} setDatasource={setDatasource} />
+            <DatasourceSelector setDatasource={setDatasource} setSelectedAsset={setSelectedAsset} />
             <Filters
                className={isLoading ? 'pointer-events-none opacity-50' : ''}
                filterState={filterState}
