@@ -8,7 +8,7 @@ export default function Breadcrumbs({ path }: BreadcrumbsProps) {
    const pathSegments = ['home', ...path.split('/').filter(Boolean)];
    let cumulativePath = '';
    return (
-      <ul className="mb-4 flex">
+      <ul className="mb-4 flex flex-wrap">
          {pathSegments.map((segment) => {
             cumulativePath += `${segment === 'home' ? '/' : `${segment}/`}`;
             return (
