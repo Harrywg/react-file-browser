@@ -1,7 +1,5 @@
 # React File Browser
 
-This repo is an attempt at the [BrightHR Junior & Middleweight Task](https://github.com/brighthr/Front-End-Tech-Tasks/blob/main/junior-and-middleweight.md).
-
 ## Prerequisites
 
 - Node.js (Latest LTS version recommended)
