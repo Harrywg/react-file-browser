@@ -15,30 +15,17 @@ export default function DatasourceSelector({ datasource, setDatasource }: Props)
    };
 
    return (
-      <form className="flex items-center justify-center gap-4 px-2 pb-2">
+      <form className="flex items-center justify-center gap-2 px-2 pb-4">
          <strong>Datasource:</strong>
-         <div className="flex items-center justify-center gap-2">
-            <label htmlFor="supplied">
-               <span>Supplied</span>
-               <input
-                  className="ml-1"
-                  type="checkbox"
-                  id="supplied"
-                  checked={datasource === 'supplied'}
-                  onChange={() => updateDatasource('supplied')}
-               />
-            </label>
-            <label htmlFor="larger-dataset">
-               <span>Larger Dataset</span>
-               <input
-                  className="ml-2"
-                  type="checkbox"
-                  id="larger-dataset"
-                  checked={datasource === 'larger-dataset'}
-                  onChange={() => updateDatasource('larger-dataset')}
-               />
-            </label>
-         </div>
+         <select
+            name="datasource"
+            id="datasource"
+            className="rounded bg-blue-700 p-1 text-white"
+            onChange={(e) => updateDatasource(e.target.value as Datasource)}
+         >
+            <option value="supplied">Supplied</option>
+            <option value="larger-dataset">Extended</option>
+         </select>
       </form>
    );
 }
