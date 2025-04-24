@@ -1,4 +1,4 @@
-import { convertToSlug, findCurrentFiles, filterFiles } from '../../src/lib/utils';
+import { convertToSlug, findCurrentFiles, filterFiles, sortFiles } from '../../src/lib/utils';
 import { Asset, Folder } from '../../src/lib/types';
 
 describe('convertToSlug', () => {
@@ -111,4 +111,33 @@ describe('filterFiles', () => {
         expect(result).toEqual([{ type: 'pdf', name: 'Report', added: '2023-01-01' }]);
     });
 });
+
+describe('sortFiles', () => {
+    const sampleFiles: (Asset | Folder)[] = [
+        { type: 'pdf', name: 'Report', added: '2023-01-01' },
+        { type: 'doc', name: 'Notes', added: '2023-01-02' }
+    ];
+
+    test('should sort files by type', () => {
+        const result = sortFiles(sampleFiles, 'type');
+        expect(result).toEqual([{ type: 'doc', name: 'Notes', added: '2023-01-02' }, { type: 'pdf', name: 'Report', added: '2023-01-01' }]);
+    });
+
+    test('should sort files by name', () => {
+        const result = sortFiles(sampleFiles, 'name');
+        expect(result).toEqual([{ type: 'doc', name: 'Notes', added: '2023-01-02' }, { type: 'pdf', name: 'Report', added: '2023-01-01' }]);
+    });
+
+    test('should sort files by added date', () => {
+        const result = sortFiles(sampleFiles, 'added');
+        expect(result).toEqual([{ type: 'pdf', name: 'Report', added: '2023-01-01' }, { type: 'doc', name: 'Notes', added: '2023-01-02' }]);
+    });
+
+    test('should sort files by added date desc', () => {
+        const result = sortFiles(sampleFiles, 'added-desc');
+        expect(result).toEqual([{ type: 'doc', name: 'Notes', added: '2023-01-02' }, { type: 'pdf', name: 'Report', added: '2023-01-01' }]);
+    });
+});
+
+
 
